@@ -1,49 +1,46 @@
-import React from 'react'
-import { useState } from 'react'
-
+import React, { useState, useRef } from 'react'
 import './form.css'
 
-function Form() {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
-    const [id, setId] = useState(0);
+function Form({ toDos, setToDos }) {
 
-    const onChangeTitleHandler = (e) => {
-        setTitle(e.target.value);
-        console.log(e.target.value)
-    }
+    const initialState = { id: 0, title: "", body: "", isDone: false }
+    const [inputToDo, setInputToDo] = useState(initialState)
+    const nextId = useRef(3)
 
-    const onChangeBodyHandler = (e) => {
-        setBody(e.target.value);
-        console.log(e.target.value)
+    const onChangeHandler = (e) => {
+        const { value, name } = e.target
+        setInputToDo({ ...inputToDo, [name]: value, id: nextId.current })
+        nextId.current++
     }
 
     const onSunmitHandler = (e) => {
-        setId(id + 1);
-        setTitle('');
-        setBody('');
+        e.preventDefault();
+        setToDos([...toDos, inputToDo])
+        setInputToDo(initialState)
     }
 
     return (
-        <form className='add-form'>
+        <form onSubmit={onSunmitHandler} className='add-form' >
             <div className='input-group'>
                 <label className='form-label'>제목</label>
                 <input
                     // class name  왜 ? 'add-input input-body'
                     className='add-input input-body'
                     type="text"
-                    value={title}
-                    onChange={onChangeTitleHandler}
+                    name="title"
+                    value={inputToDo.title}
+                    onChange={onChangeHandler}
                 ></input>
                 <label className='form-label'>내용</label>
                 <input
                     className='add-input'
                     type="text"
-                    value={body}
-                    onChange={onChangeBodyHandler}
+                    name="body"
+                    value={inputToDo.body}
+                    onChange={onChangeHandler}
                 ></input>
             </div>
-            <button className='add-button' onClick={onSunmitHandler}>추가하기</button>
+            <button className='add-button'>추가하기</button>
         </form>
     );
 };
