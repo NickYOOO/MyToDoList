@@ -31,7 +31,7 @@ function List({ toDos, setToDos }) {
                         return (
                             <ToDo
                                 toDo={toDo}
-                                id={toDo.id}
+                                key={toDo.id}
                                 setToDos={setToDos}
                                 deleteHandler={deleteHandler}
                                 completeHandler={completeHandler}
@@ -47,7 +47,7 @@ function List({ toDos, setToDos }) {
                         return (
                             <ToDo
                                 toDo={toDo}
-                                id={toDo.id}
+                                key={toDo.id}
                                 setToDos={setToDos}
                                 deleteHandler={deleteHandler}
                                 completeHandler={completeHandler}
