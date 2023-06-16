@@ -1,7 +1,7 @@
 import React from 'react'
 import "./list.css"
 import ToDo from 'components/todo/ToDo';
-
+// 다른 형제 컴포넌트들의 event에 의해 부모컴포넌트에서 수정된 props({ toDos, setToDos })들을 넘겨 받는다.
 function List({ toDos, setToDos }) {
 
     const deleteHandler = (selectedId) => {
